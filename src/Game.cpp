@@ -29,7 +29,7 @@ void Game::createWindow() {
     exit(2);
   }
   this->renderer = SDL_CreateRenderer(
-      window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+      window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
   SDL_RenderClear(renderer);
 }
 
@@ -92,8 +92,6 @@ SDL_Surface *Game::createGameMapSurface() {
         tileColor = SDL_MapRGB(surface->format, 0, 255, 255);
       }
       if (currentTileId == 3) {
-        // playerPosition.x = column * TILE_SIZE;
-        // playerPosition.y = column * TILE_SIZE;
         tileColor = SDL_MapRGB(surface->format, 255, 0, 0);
       }
       SDL_FillRect(surface, &rectangle, tileColor);
