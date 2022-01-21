@@ -7,16 +7,21 @@
 #include <iostream>
 
 class Game {
-  uint32_t SCREEN_WIDTH = 640;  // 20 tiles
-  uint32_t SCREEN_HEIGHT = 480; // 15 tiles
-  int32_t TILE_SIZE = 32;
+  const char *FILE = "level1";
+  // uint32_t SCREEN_WIDTH = 640;  // 20 tiles
+  // uint32_t SCREEN_HEIGHT = 480; // 15 tiles
+  static size_t const MAZE_WIDTH = 41;
+  static size_t const MAZE_HEIGHT =31;
+  static int32_t const TILE_SIZE = 32;
+  uint32_t SCREEN_WIDTH = MAZE_WIDTH*TILE_SIZE; // 50 tiles
+  uint32_t SCREEN_HEIGHT = MAZE_HEIGHT*TILE_SIZE; // 25 tiles
+  static size_t const TILE_COUNT = MAZE_WIDTH*MAZE_HEIGHT;
   uint32_t playerColor = 0;
-  int gameMapTiles[300] = {};
+  int gameMapTiles[TILE_COUNT] = {};
 
   bool quit = false;
   bool pause = false;
 
-  const char *FILE = "level";
 
   SDL_Window *window = nullptr;
 

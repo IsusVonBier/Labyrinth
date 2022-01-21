@@ -2,7 +2,7 @@
 
 int Game::mapCoordinateToTileId(SDL_Rect position) {
   int tileSize = 32;
-  int tilesAcross = 20;
+  int tilesAcross = MAZE_WIDTH;
   int index = position.y / tileSize * tilesAcross + position.x / tileSize;
 
   return this->gameMapTiles[index];

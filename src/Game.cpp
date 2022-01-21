@@ -49,8 +49,8 @@ void Game::loadGameMap() {
 
 void Game::printGameMap() {
 
-  for (int i = 0; i < 300; i++) {
-    if (i != 0 && i % 20 == 0)
+  for (int i = 0; i < TILE_COUNT; i++) {
+    if (i != 0 && i % MAZE_WIDTH == 0)
       std::cout << "\n";
     std::cout << this->gameMapTiles[i] << " ";
   }
@@ -67,18 +67,18 @@ void Game::setupGameMapSurface() {
 
 SDL_Surface *Game::createGameMapSurface() {
 
-  SDL_Surface *surface = SDL_CreateRGBSurface(0, 640, 480, 32, 0, 0, 0, 0);
+  SDL_Surface *surface = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0, 0);
 
   int row = 0;
   int column = 0;
 
   SDL_Rect rectangle = {0, 0, 32, 32};
 
-  while (row < 15) {
-    while (column < 20) {
+  while (row < MAZE_HEIGHT) {
+    while (column < MAZE_WIDTH) {
       rectangle.x = column * 32;
       rectangle.y = row * 32;
-      int currentTileId = this->gameMapTiles[row * 20 + column];
+      int currentTileId = this->gameMapTiles[row * MAZE_WIDTH + column];
       uint32_t tileColor;
       if (currentTileId == 0) {
         tileColor = SDL_MapRGBA(surface->format, 0, 0, 0,0);
