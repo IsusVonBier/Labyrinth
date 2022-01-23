@@ -6,9 +6,8 @@ int main(int argc, char *argv[]) {
 
   game.createWindow();
 
-  game.loadGameMap();
-  game.printGameMap();
-  game.setupGameMapSurface();
+  game.newGame();
+//   game.printGameMap();
   game.run();
 
   game.shutdown();
