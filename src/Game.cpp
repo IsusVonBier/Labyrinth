@@ -52,7 +52,6 @@ void Game::createWindow()
 	gameFont = TTF_OpenFont("assets/SEGA.ttf", 24);
 	fontSurface = TTF_RenderText_Solid(gameFont, "NEGA", {0, 25, 255});
 	Nega = SDL_CreateTextureFromSurface(renderer, fontSurface);
-	startBtn = SDL_CreateTextureFromSurface(renderer, fontSurface);
 	gameFont = TTF_OpenFont("assets/LitterLover2-Bold.ttf", 18);
 	fontSurface = TTF_RenderText_Solid(gameFont, "New game", fontColor);
 	startBtn = SDL_CreateTextureFromSurface(renderer, fontSurface);

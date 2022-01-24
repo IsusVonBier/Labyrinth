@@ -34,7 +34,8 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< $(CPPFLAGS) -o $@
 
 win:
-	$(CXX) $(CXXFLAGS) $(SRCS) $(WINFLAGS) -o $(BIN)
+	windres main.rc -O coff src/main.res
+	$(CXX) $(CXXFLAGS) $(SRCS) ./src/main.res $(WINFLAGS) -o $(BIN)
 
 
 clean:
