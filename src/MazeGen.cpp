@@ -41,13 +41,22 @@ uint32_t MazeGenerator::getIdx(uint32_t x, uint32_t y, std::vector<std::pair<uin
 
 void MazeGenerator::createMaze()
 {
+	while (!m_stack.empty())
+	{
+		m_stack.pop();
+	}
 
 	// auto offset = [&](int x, int y) {
 	//   return (m_stack.top().second.second + y) * M +
 	//          (m_stack.top().second.first + x);
 	// };
+
 	startX = Random::RNG(m);
 	startY = Random::RNG(n);
+	longestPath = 0;
+	maze.clear();
+	cells.clear();
+	visited.clear();
 
 	maze.assign(M, std::vector<uint32_t>(N));
 	visited.assign(m * n, false);
