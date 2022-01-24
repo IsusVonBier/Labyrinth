@@ -2,6 +2,8 @@
 
 This is a Labyrinth game made in C++ using SDL2 library. Mazes are generated with "recursive backtracker" algorithm.
 
+![This is an image](TitleScreen.jpg)
+
 ## Dependencies
 
 For Linux:
