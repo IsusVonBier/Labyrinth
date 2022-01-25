@@ -2,29 +2,23 @@
 
 uint32_t Game::mapCoordinateToTileId(SDL_Rect position)
 {
-	uint32_t tileSize = TILE_SIZE;
-	uint32_t tilesAcross = MAZE_WIDTH;
-	uint32_t index = position.y / tileSize * tilesAcross + position.x / tileSize;
+	uint32_t index = position.y / TILE_SIZE * MAZE_WIDTH + position.x / TILE_SIZE;
 
 	return this->gameMapTiles[index];
 }
 
 bool isWalkableTile(uint32_t tileId)
 {
-	if (tileId != WALL)
-		return true;
-	return false;
+	return tileId != WALL;
 }
 bool Game::isExit(uint32_t tileId)
 {
-	if (tileId == EXIT)
-		return true;
-	return false;
+	return tileId == EXIT;
 }
 
 void Game::playerMovement()
 {
-	SDL_Rect newPosition = playerPosition;
+	newPosition = playerPosition;
 	uint32_t nextTileId;
 
 	// switch (event.key.keysym.sym)

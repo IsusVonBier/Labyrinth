@@ -134,10 +134,10 @@ SDL_Surface *Game::createGameMapSurface()
 	int row = 0;
 	int column = 0;
 
-	SDL_Rect rectangle = {0, 0, TILE_SIZE, TILE_SIZE};
-	// SDL_Surface *floor = IMG_Load("assets/floor.png");
-	SDL_Surface *wall = IMG_Load("assets/wall.png");
-	SDL_Surface *exit = IMG_Load("assets/exit.png");
+	wallTile = IMG_Load("assets/wall.png");
+	exitTile = IMG_Load("assets/exit.png");
+	uint32_t currentTileId;
+	uint32_t tileColor;
 
 	while (row < MAZE_HEIGHT)
 	{
@@ -145,8 +145,8 @@ SDL_Surface *Game::createGameMapSurface()
 		{
 			rectangle.x = column * TILE_SIZE;
 			rectangle.y = row * TILE_SIZE;
-			uint32_t currentTileId = this->gameMapTiles[row * MAZE_WIDTH + column];
-			uint32_t tileColor;
+			currentTileId = this->gameMapTiles[row * MAZE_WIDTH + column];
+
 			if (currentTileId == 0)
 			{
 				// SDL_BlitSurface(floor, NULL, surface, &rectangle);
@@ -154,7 +154,7 @@ SDL_Surface *Game::createGameMapSurface()
 			}
 			if (currentTileId == 1)
 			{
-				SDL_BlitSurface(wall, NULL, surface, &rectangle);
+				SDL_BlitSurface(wallTile, NULL, surface, &rectangle);
 				// tileColor = SDL_MapRGB(surface->format, wallColor.r, wallColor.g, wallColor.b);
 			}
 			if (currentTileId == 2)
@@ -165,7 +165,7 @@ SDL_Surface *Game::createGameMapSurface()
 			}
 			if (currentTileId == 3)
 			{
-				SDL_BlitSurface(exit, NULL, surface, &rectangle);
+				SDL_BlitSurface(exitTile, NULL, surface, &rectangle);
 				// tileColor = SDL_MapRGB(surface->format, 255, 0, 255);
 			}
 			if (/*currentTileId != 0 && */ currentTileId != 1 && currentTileId != 3)
@@ -176,8 +176,10 @@ SDL_Surface *Game::createGameMapSurface()
 		row++;
 	}
 	// SDL_FreeSurface(floor);
-	SDL_FreeSurface(exit);
-	SDL_FreeSurface(wall);
+	SDL_FreeSurface(exitTile);
+	SDL_FreeSurface(wallTile);
+	exitTile = nullptr;
+	wallTile = nullptr;
 
 	return surface;
 }
@@ -203,13 +205,10 @@ void Game::run()
 	{
 		SDL_GetMouseState(&mouseX, &mouseY);
 
-		if (isExit(mapCoordinateToTileId(playerPosition)))
+		if (isExit(mapCoordinateToTileId(playerPosition)) && !labyrWon)
 		{
-			if (!labyrWon)
-			{
 				finishSound->PlaySound();
 				labyrWon = true;
-			}
 		}
 		if (game)
 		{
@@ -269,20 +268,16 @@ void Game::run()
 					SelectSound->PlaySound();
 					ngPlayed = true;
 				}
-				if (event.type == SDL_MOUSEBUTTONDOWN)
-				{
-					if (event.button.button == SDL_BUTTON_LEFT)
+				if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT)
 					{
 						if (pause || labyrWon)
-						{
 							newGame();
-						}
 						menu = false;
 						game = true;
 						pause = false;
 						labyrWon = false;
 						startSound->PlaySound();
-					}
+
 				}
 			}
 			else
@@ -302,7 +297,6 @@ void Game::run()
 				{
 					if (event.button.button == SDL_BUTTON_LEFT)
 					{
-
 						pause = !pause;
 					}
 				}

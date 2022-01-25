@@ -9,6 +9,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <fstream>
 #include <iostream>
+#include <queue>
 
 class Game
 {
@@ -34,8 +35,11 @@ class Game
 
 	SDL_Surface *fontSurface = nullptr;
 	SDL_Surface *gameMapSur = nullptr;
+	SDL_Surface *wallTile = nullptr;
+	SDL_Surface *exitTile = nullptr;
 
-	std::stack<std::vector<uint32_t>> maps; // napravit queue mapa
+
+	// std::queue<std::vector<uint32_t>> maps; // napravit queue mapa
 
 	MazeGenerator maze;
 
@@ -68,6 +72,8 @@ class Game
 	SDL_Rect pauseMenu = {SCREEN_WIDTH / 2 - 250, SCREEN_HEIGHT / 2 - 150, 500, 300};
 	SDL_Rect playerPosition = {0, 0, TILE_SIZE - 8, TILE_SIZE - 8};
 	SDL_Rect background_Rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+	SDL_Rect rectangle = {0, 0, TILE_SIZE, TILE_SIZE};
+	SDL_Rect newPosition;
 	// SDL_Rect startBtn_Rect = {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 30, 100, 50};
 	// SDL_Rect quitBtn_Rect = {SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 30, 100, 50};
 
