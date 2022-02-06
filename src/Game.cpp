@@ -108,6 +108,8 @@ void Game::newGame()
 {
 	this->gameMapTiles = this->nxtLvlMap;
 	gameMapSur = createGameMapSurface();
+
+	SDL_DestroyTexture(this->gameMapTex);
 	this->gameMapTex = SDL_CreateTextureFromSurface(renderer, gameMapSur);
 	SDL_FreeSurface(gameMapSur);
 	prepareForRendering();
