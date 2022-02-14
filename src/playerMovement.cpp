@@ -21,79 +21,87 @@ void Game::playerMovement()
 	newPosition = playerPosition;
 	uint32_t nextTileId;
 
-	// switch (event.key.keysym.sym)
-	// {
+	switch (event.key.keysym.sym)
+	{
 	// case SDLK_ESCAPE:
 	//   pause = !pause;
 	//   break;
-	// case SDLK_RIGHT:
-	if (event.key.keysym.sym == SDLK_RIGHT)
-	{
-		playerOrientation = EAST;
+	case SDLK_RIGHT:
+	case SDLK_d:
+	case SDLK_l:
+		// if (event.key.keysym.sym == SDLK_RIGHT)
+		{
+			playerOrientation = EAST;
 
-		if (playerPosition.x + TILE_SIZE < SCREEN_WIDTH)
-		{
-			newPosition.x += TILE_SIZE;
-			nextTileId = mapCoordinateToTileId(newPosition);
-			if (isWalkableTile(nextTileId))
+			if (playerPosition.x + TILE_SIZE < SCREEN_WIDTH)
 			{
-				playerPosition.x += TILE_SIZE;
-				StepSound->PlaySound();
+				newPosition.x += TILE_SIZE;
+				nextTileId = mapCoordinateToTileId(newPosition);
+				if (isWalkableTile(nextTileId))
+				{
+					playerPosition.x += TILE_SIZE;
+					StepSound->PlaySound();
+				}
 			}
 		}
-	}
-	// break;
-	// case SDLK_LEFT:
-	else if (event.key.keysym.sym == SDLK_LEFT)
-	{
-		playerOrientation = WEST;
-		if (playerPosition.x > 0)
+		break;
+	case SDLK_LEFT:
+	case SDLK_a:
+	case SDLK_h:
+		// else if (event.key.keysym.sym == SDLK_LEFT)
 		{
-			newPosition.x -= TILE_SIZE;
-			nextTileId = mapCoordinateToTileId(newPosition);
-			if (isWalkableTile(nextTileId))
+			playerOrientation = WEST;
+			if (playerPosition.x > 0)
 			{
-				playerPosition.x -= TILE_SIZE;
-				StepSound->PlaySound();
+				newPosition.x -= TILE_SIZE;
+				nextTileId = mapCoordinateToTileId(newPosition);
+				if (isWalkableTile(nextTileId))
+				{
+					playerPosition.x -= TILE_SIZE;
+					StepSound->PlaySound();
+				}
 			}
 		}
-	}
-	// break;
-	// case SDLK_UP:
-	else if (event.key.keysym.sym == SDLK_UP)
-	{
-		playerOrientation = NORTH;
-		if (playerPosition.y > 0)
+		break;
+	case SDLK_UP:
+	case SDLK_w:
+	case SDLK_k:
+		// else if (event.key.keysym.sym == SDLK_UP)
 		{
-			newPosition.y -= TILE_SIZE;
-			nextTileId = mapCoordinateToTileId(newPosition);
-			if (isWalkableTile(nextTileId))
+			playerOrientation = NORTH;
+			if (playerPosition.y > 0)
 			{
+				newPosition.y -= TILE_SIZE;
+				nextTileId = mapCoordinateToTileId(newPosition);
+				if (isWalkableTile(nextTileId))
+				{
 
-				playerPosition.y -= TILE_SIZE;
-				StepSound->PlaySound();
+					playerPosition.y -= TILE_SIZE;
+					StepSound->PlaySound();
+				}
 			}
 		}
-	}
-	// break;
-	// case SDLK_DOWN:
-	else if (event.key.keysym.sym == SDLK_DOWN)
-	{
-		playerOrientation = SOUTH;
-		if (playerPosition.y + TILE_SIZE < SCREEN_HEIGHT)
+		break;
+	case SDLK_DOWN:
+	case SDLK_s:
+	case SDLK_j:
+		// else if (event.key.keysym.sym == SDLK_DOWN)
 		{
-			newPosition.y += TILE_SIZE;
-			nextTileId = mapCoordinateToTileId(newPosition);
-			if (isWalkableTile(nextTileId))
+			playerOrientation = SOUTH;
+			if (playerPosition.y + TILE_SIZE < SCREEN_HEIGHT)
 			{
-				playerPosition.y += TILE_SIZE;
-				StepSound->PlaySound();
+				newPosition.y += TILE_SIZE;
+				nextTileId = mapCoordinateToTileId(newPosition);
+				if (isWalkableTile(nextTileId))
+				{
+					playerPosition.y += TILE_SIZE;
+					StepSound->PlaySound();
+				}
 			}
 		}
+		break;
+		// default:
+		// std::cerr << event.key.keysym.sym << "\n";
+		// break;
 	}
-	// break;
-	// default:
-	// std::cerr << event.key.keysym.sym << "\n";
-	// break;
-	// }
 }
